@@ -3,7 +3,525 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/*
+ * Thèmes GPI — mode sombre (default) et mode clair.
+ * Chaque thème redéfinit les variables CSS qui alimentent les échelles Tailwind.
+ * L'attribut [data-theme] sur <html> sélectionne le thème actif.
+ *
+ * Tokens de surface (sombres) :
+ *   slate-950 fond page · slate-900 sidebar · card cartes · card-high inputs
+ *   slate-100/50 survols · slate-200/300 bordures
+ * Tokens de texte : slate-400 secondaire · slate-500 muted · slate-700 principal · slate-800 titres
+ */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* ===== base : navy Stitch (sombre) ===== */
+    --color-slate-50: #222940;
+    --color-slate-100: #222940;
+    --color-slate-200: #434655;
+    --color-slate-300: #434655;
+    --color-slate-400: #8d90a0;
+    --color-slate-500: #8d90a0;
+    --color-slate-600: #c3c6d7;
+    --color-slate-700: #c3c6d7;
+    --color-slate-800: #dbe1ff;
+    --color-slate-900: #131b31;
+    --color-slate-950: #0a1228;
+
+    --color-blue-50: #1a2542;
+    --color-blue-100: #24345e;
+    --color-blue-200: #33477e;
+    --color-blue-300: #b4c5ff;
+    --color-blue-400: #8fa8ff;
+    --color-blue-500: #4f74e3;
+    --color-blue-600: #2563eb;
+    --color-blue-700: #1e52c8;
+    --color-blue-800: #003ea8;
+    --color-blue-900: #0a1a3f;
+    --color-blue-950: #071022;
+
+    --color-sky-50: #0c2738;
+    --color-sky-100: #0e3145;
+    --color-sky-200: #1a4260;
+    --color-sky-300: #2a5d80;
+    --color-sky-400: #7bd0ff;
+    --color-sky-500: #00a6e0;
+    --color-sky-600: #0091c7;
+    --color-sky-700: #00b0e8;
+    --color-sky-800: #56c8f2;
+    --color-sky-900: #8fdcff;
+    --color-sky-950: #00354a;
+
+    --color-card: #131b31;
+    --color-card-high: #2c344c;
+    --color-vert: #4edea3;
+
+    /* Couleurs sémantiques : vert = actif/ok · rouge/rose = inactif/erreur · orange = maintenance/attention · jaune = réserve/congé */
+    --color-vert-50: #0d2b1a;
+    --color-vert-100: #123a24;
+    --color-vert-200: #1c5636;
+    --color-vert-300: #22b567;
+    --color-vert-400: #4ade80;
+    --color-vert-500: #22c55e;
+    --color-vert-600: #16a34a;
+    --color-vert-700: #15803d;
+
+    --color-rose-50: #3b1113;
+    --color-rose-100: #4a1518;
+    --color-rose-200: #7f1d1d;
+    --color-rose-400: #f87171;
+    --color-rose-500: #ffb4ab;
+    --color-rose-600: #dc2626;
+    --color-rose-700: #ffdad6;
+
+    --color-orange-50: #2b1a08;
+    --color-orange-100: #3d2610;
+    --color-orange-200: #6b4416;
+    --color-orange-400: #fb923c;
+    --color-orange-500: #f97316;
+    --color-orange-600: #ea580c;
+
+    --color-jaune-50: #2b2408;
+    --color-jaune-100: #3d3310;
+    --color-jaune-200: #6b5a16;
+    --color-jaune-400: #facc15;
+    --color-jaune-500: #eab308;
+    --color-jaune-600: #ca8a04;
 }
+
+/* ============================================================
+ * THÈMES SOMBRES
+ * ============================================================ */
+
+/* 2. Océan profond — bleu pétrole */
+[data-theme='ocean'] {
+    --color-slate-950: #061a24; --color-slate-900: #0b2431; --color-card: #0e2c3b; --color-card-high: #1a4152;
+    --color-slate-100: #16404f; --color-slate-50: #16404f; --color-slate-200: #29566a; --color-slate-300: #29566a;
+    --color-slate-400: #7d9aa8; --color-slate-500: #7d9aa8; --color-slate-600: #cfe0e8; --color-slate-700: #cfe0e8; --color-slate-800: #e6f3fa;
+    --color-blue-300: #a6e4ff; --color-blue-400: #7dd3fc; --color-blue-600: #0284c7; --color-blue-950: #051f30;
+    --color-sky-400: #67e8f9; --color-rose-50: #3b1113; --color-rose-200: #93000a; --color-rose-500: #ffb4ab; --color-rose-700: #ffdad6;
+}
+
+/* 3. Forêt — vert profond DGSR nature */
+[data-theme='foret'] {
+    --color-slate-950: #07160f; --color-slate-900: #0c241a; --color-card: #102e21; --color-card-high: #1d4a35;
+    --color-slate-100: #17402d; --color-slate-50: #17402d; --color-slate-200: #2a5c44; --color-slate-300: #2a5c44;
+    --color-slate-400: #8aab9a; --color-slate-500: #8aab9a; --color-slate-600: #d4e8dd; --color-slate-700: #d4e8dd; --color-slate-800: #e8f6ee;
+    --color-blue-300: #86efac; --color-blue-400: #4ade80; --color-blue-600: #16a34a; --color-blue-950: #052e16;
+    --color-sky-400: #5eead4; --color-rose-50: #3b1113; --color-rose-200: #93000a; --color-rose-500: #ffb4ab; --color-rose-700: #ffdad6;
+}
+
+/* 4. Aubergine — violet profond */
+[data-theme='aubergine'] {
+    --color-slate-950: #150a24; --color-slate-900: #221038; --color-card: #2b1645; --color-card-high: #452566;
+    --color-slate-100: #3a1f58; --color-slate-50: #3a1f58; --color-slate-200: #5c3a80; --color-slate-300: #5c3a80;
+    --color-slate-400: #a68cc0; --color-slate-500: #a68cc0; --color-slate-600: #e0d4f0; --color-slate-700: #e0d4f0; --color-slate-800: #f0e8fa;
+    --color-blue-300: #d8b4fe; --color-blue-400: #c084fc; --color-blue-600: #9333ea; --color-blue-950: #2e1065;
+    --color-sky-400: #f0abfc; --color-rose-50: #3b1113; --color-rose-200: #93000a; --color-rose-500: #ffb4ab; --color-rose-700: #ffdad6;
+}
+
+/* 5. Graphite — gris acier neutre */
+[data-theme='graphite'] {
+    --color-slate-950: #0d0f12; --color-slate-900: #16191e; --color-card: #1c2026; --color-card-high: #2c323b;
+    --color-slate-100: #262b33; --color-slate-50: #262b33; --color-slate-200: #3d4550; --color-slate-300: #3d4550;
+    --color-slate-400: #8b95a3; --color-slate-500: #8b95a3; --color-slate-600: #d3dae3; --color-slate-700: #d3dae3; --color-slate-800: #edf1f7;
+    --color-blue-300: #93c5fd; --color-blue-400: #60a5fa; --color-blue-600: #3b82f6; --color-blue-950: #172554;
+    --color-sky-400: #38bdf8; --color-rose-50: #3b1113; --color-rose-200: #93000a; --color-rose-500: #ffb4ab; --color-rose-700: #ffdad6;
+}
+
+/* 6. Bordeaux — rouge profond étatique */
+[data-theme='bordeaux'] {
+    --color-slate-950: #1c0a0e; --color-slate-900: #2d1117; --color-card: #39161e; --color-card-high: #55232e;
+    --color-slate-100: #471c25; --color-slate-50: #471c25; --color-slate-200: #6e3040; --color-slate-300: #6e3040;
+    --color-slate-400: #b9909c; --color-slate-500: #b9909c; --color-slate-600: #f0d5dc; --color-slate-700: #f0d5dc; --color-slate-800: #fae8ed;
+    --color-blue-300: #fda4af; --color-blue-400: #fb7185; --color-blue-600: #e11d48; --color-blue-950: #4c0519;
+    --color-sky-400: #fbbf24; --color-rose-50: #3b1113; --color-rose-200: #93000a; --color-rose-500: #ffb4ab; --color-rose-700: #ffdad6;
+}
+
+/* 7. Café — brun chaleureux */
+[data-theme='cafe'] {
+    --color-slate-950: #170f08; --color-slate-900: #241a0f; --color-card: #2e2214; --color-card-high: #473620;
+    --color-slate-100: #3a2c1a; --color-slate-50: #3a2c1a; --color-slate-200: #5c472c; --color-slate-300: #5c472c;
+    --color-slate-400: #ab9a80; --color-slate-500: #ab9a80; --color-slate-600: #ecdcc4; --color-slate-700: #ecdcc4; --color-slate-800: #f8efe0;
+    --color-blue-300: #fcd34d; --color-blue-400: #fbbf24; --color-blue-600: #d97706; --color-blue-950: #451a03;
+    --color-sky-400: #a3e635; --color-rose-50: #3b1113; --color-rose-200: #93000a; --color-rose-500: #ffb4ab; --color-rose-700: #ffdad6;
+}
+
+/* 8. Minuit — bleu nuit très sombre, accents violets */
+[data-theme='minuit'] {
+    --color-slate-950: #02040a; --color-slate-900: #060b18; --color-card: #0a1120; --color-card-high: #151f38;
+    --color-slate-100: #101830; --color-slate-50: #101830; --color-slate-200: #1e2c4e; --color-slate-300: #1e2c4e;
+    --color-slate-400: #6b7ba3; --color-slate-500: #6b7ba3; --color-slate-600: #c4cff0; --color-slate-700: #c4cff0; --color-slate-800: #e3e9ff;
+    --color-blue-300: #a5b4fc; --color-blue-400: #818cf8; --color-blue-600: #6366f1; --color-blue-950: #1e1b4b;
+    --color-sky-400: #22d3ee; --color-rose-50: #3b1113; --color-rose-200: #93000a; --color-rose-500: #ffb4ab; --color-rose-700: #ffdad6;
+}
+
+/* ============================================================
+ * THÈMES CLAIRS
+ * ============================================================ */
+
+/* 9. Clair bleu — blanc + bleu Tailwind classique */
+[data-theme='clair-bleu'] {
+    --color-slate-950: #f1f5f9; --color-slate-900: #ffffff; --color-card: #ffffff; --color-card-high: #f1f5f9;
+    --color-slate-100: #f1f5f9; --color-slate-50: #f8fafc; --color-slate-200: #cbd5e1; --color-slate-300: #e2e8f0;
+    --color-slate-400: #5b6b80; --color-slate-500: #64748b; --color-slate-600: #334155; --color-slate-700: #334155; --color-slate-800: #0f172a;
+    --color-blue-50: #eff6ff; --color-blue-100: #dbeafe; --color-blue-200: #bfdbfe; --color-blue-300: #1d4ed8; --color-blue-400: #2563eb; --color-blue-500: #2563eb; --color-blue-600: #2563eb; --color-blue-700: #1d4ed8; --color-blue-950: #1e3a8a;
+    --color-sky-50: #f0f9ff; --color-sky-100: #e0f2fe; --color-sky-200: #bae6fd; --color-sky-300: #7dd3fc; --color-sky-400: #0369a1; --color-sky-500: #0ea5e9; --color-sky-600: #0284c7; --color-sky-700: #0369a1; --color-rose-50: #fef2f2; --color-rose-200: #fecaca; --color-rose-500: #dc2626; --color-rose-700: #b91c1c;
+}
+
+/* 10. Clair ciel — blanc + cyan doux */
+[data-theme='clair-ciel'] {
+    --color-slate-950: #ecfeff; --color-slate-900: #ffffff; --color-card: #ffffff; --color-card-high: #ecfeff;
+    --color-slate-100: #e0f7fa; --color-slate-50: #f0fdff; --color-slate-200: #a5f3fc; --color-slate-300: #cffafe;
+    --color-slate-400: #155e75; --color-slate-500: #155e75; --color-slate-600: #155e75; --color-slate-700: #155e75; --color-slate-800: #083344;
+    --color-blue-50: #ecfeff; --color-blue-100: #cffafe; --color-blue-200: #a5f3fc; --color-blue-300: #0e7490; --color-blue-400: #0891b2; --color-blue-500: #0891b2; --color-blue-600: #0891b2; --color-blue-700: #0e7490; --color-blue-950: #164e63;
+    --color-sky-50: #f0f9ff; --color-sky-100: #e0f2fe; --color-sky-200: #bae6fd; --color-sky-300: #7dd3fc; --color-sky-400: #0e7490; --color-sky-500: #06b6d4; --color-sky-600: #0891b2; --color-sky-700: #0e7490; --color-rose-50: #fef2f2; --color-rose-200: #fecaca; --color-rose-500: #dc2626; --color-rose-700: #b91c1c;
+}
+
+/* 11. Clair forêt — blanc + vert */
+[data-theme='clair-foret'] {
+    --color-slate-950: #f0fdf4; --color-slate-900: #ffffff; --color-card: #ffffff; --color-card-high: #f0fdf4;
+    --color-slate-100: #dcfce7; --color-slate-50: #f7fef9; --color-slate-200: #bbf7d0; --color-slate-300: #dcfce7;
+    --color-slate-400: #166534; --color-slate-500: #166534; --color-slate-600: #166534; --color-slate-700: #166534; --color-slate-800: #14532d;
+    --color-blue-50: #f0fdf4; --color-blue-100: #dcfce7; --color-blue-200: #bbf7d0; --color-blue-300: #15803d; --color-blue-400: #166534; --color-blue-500: #16a34a; --color-blue-600: #16a34a; --color-blue-700: #15803d; --color-blue-950: #14532d;
+    --color-sky-50: #f0fdfa; --color-sky-100: #ccfbf1; --color-sky-200: #99f6e4; --color-sky-300: #5eead4; --color-sky-400: #0f766e; --color-sky-500: #14b8a6; --color-sky-600: #0d9488; --color-sky-700: #0f766e; --color-rose-50: #fef2f2; --color-rose-200: #fecaca; --color-rose-500: #dc2626; --color-rose-700: #b91c1c;
+}
+
+/* 12. Clair sable — crème + ambre */
+[data-theme='clair-sable'] {
+    --color-slate-950: #fefce8; --color-slate-900: #ffffff; --color-card: #fffef7; --color-card-high: #fef9c3;
+    --color-slate-100: #fef3c7; --color-slate-50: #fffbeb; --color-slate-200: #fde68a; --color-slate-300: #fef3c7;
+    --color-slate-400: #854d0e; --color-slate-500: #854d0e; --color-slate-600: #854d0e; --color-slate-700: #854d0e; --color-slate-800: #713f12;
+    --color-blue-50: #fffbeb; --color-blue-100: #fef3c7; --color-blue-200: #fde68a; --color-blue-300: #b45309; --color-blue-400: #92400e; --color-blue-500: #d97706; --color-blue-600: #d97706; --color-blue-700: #b45309; --color-blue-950: #78350f;
+    --color-sky-50: #fff7ed; --color-sky-100: #ffedd5; --color-sky-200: #fed7aa; --color-sky-300: #fdba74; --color-sky-400: #c2410c; --color-sky-500: #ea580c; --color-sky-600: #ea580c; --color-sky-700: #c2410c; --color-rose-50: #fef2f2; --color-rose-200: #fecaca; --color-rose-500: #dc2626; --color-rose-700: #b91c1c;
+}
+
+/* 13. Clair rose — blanc rosé */
+[data-theme='clair-rose'] {
+    --color-slate-950: #fdf2f8; --color-slate-900: #ffffff; --color-card: #ffffff; --color-card-high: #fce7f3;
+    --color-slate-100: #fce7f3; --color-slate-50: #fdf4f9; --color-slate-200: #f9a8d4; --color-slate-300: #fbcfe8;
+    --color-slate-400: #9d174d; --color-slate-500: #9d174d; --color-slate-600: #9d174d; --color-slate-700: #9d174d; --color-slate-800: #831843;
+    --color-blue-50: #fdf2f8; --color-blue-100: #fce7f3; --color-blue-200: #fbcfe8; --color-blue-300: #be185d; --color-blue-400: #9d174d; --color-blue-500: #db2777; --color-blue-600: #db2777; --color-blue-700: #be185d; --color-blue-950: #831843;
+    --color-sky-50: #faf5ff; --color-sky-100: #f3e8ff; --color-sky-200: #e9d5ff; --color-sky-300: #d8b4fe; --color-sky-400: #7e22ce; --color-sky-500: #9333ea; --color-sky-600: #7e22ce; --color-sky-700: #6b21a8; --color-rose-50: #fef2f2; --color-rose-200: #fecaca; --color-rose-500: #dc2626; --color-rose-700: #b91c1c;
+}
+
+/* 14. Clair ardoise — gris chic */
+[data-theme='clair-ardoise'] {
+    --color-slate-950: #f4f4f5; --color-slate-900: #ffffff; --color-card: #ffffff; --color-card-high: #f4f4f5;
+    --color-slate-100: #e4e4e7; --color-slate-50: #fafafa; --color-slate-200: #d4d4d8; --color-slate-300: #e4e4e7;
+    --color-slate-400: #3f3f46; --color-slate-500: #52525b; --color-slate-600: #3f3f46; --color-slate-700: #3f3f46; --color-slate-800: #18181b;
+    --color-blue-50: #eef2ff; --color-blue-100: #e0e7ff; --color-blue-200: #c7d2fe; --color-blue-300: #4338ca; --color-blue-400: #4f46e5; --color-blue-500: #4f46e5; --color-blue-600: #4f46e5; --color-blue-700: #4338ca; --color-blue-950: #312e81;
+    --color-sky-50: #f0f9ff; --color-sky-100: #e0f2fe; --color-sky-200: #bae6fd; --color-sky-300: #7dd3fc; --color-sky-400: #0369a1; --color-sky-500: #0ea5e9; --color-sky-600: #0284c7; --color-sky-700: #0369a1; --color-rose-50: #fef2f2; --color-rose-200: #fecaca; --color-rose-500: #dc2626; --color-rose-700: #b91c1c;
+}
+
+/* 15. Clair high-contrast — blanc pur, bordures marquées */
+[data-theme='clair-contraste'] {
+    --color-slate-950: #ffffff; --color-slate-900: #ffffff; --color-card: #ffffff; --color-card-high: #f5f5f5;
+    --color-slate-100: #f0f0f0; --color-slate-50: #fafafa; --color-slate-200: #e5e5e5; --color-slate-300: #d4d4d4;
+    --color-slate-400: #404040; --color-slate-500: #404040; --color-slate-600: #171717; --color-slate-700: #171717; --color-slate-800: #000000;
+    --color-blue-50: #eff6ff; --color-blue-100: #dbeafe; --color-blue-200: #bfdbfe; --color-blue-300: #1e40af; --color-blue-400: #1d4ed8; --color-blue-500: #1d4ed8; --color-blue-600: #1d4ed8; --color-blue-700: #1e40af; --color-blue-950: #172554;
+    --color-sky-50: #f0f9ff; --color-sky-100: #e0f2fe; --color-sky-200: #bae6fd; --color-sky-300: #7dd3fc; --color-sky-400: #0e7490; --color-sky-500: #0ea5e9; --color-sky-600: #0284c7; --color-sky-700: #0369a1; --color-rose-50: #fef2f2; --color-rose-200: #fecaca; --color-rose-500: #b91c1c; --color-rose-700: #7f1d1d;
+}
+
+/* Aura décorative : chaque thème apporte sa teinte d'énergie au fond */
+[data-theme='navy']     { --aura-1: rgba(37, 99, 235, .12);  --aura-2: rgba(0, 166, 224, .08); }
+[data-theme='ocean']    { --aura-1: rgba(2, 132, 199, .13);  --aura-2: rgba(103, 232, 249, .07); }
+[data-theme='minuit']   { --aura-1: rgba(99, 102, 241, .13); --aura-2: rgba(34, 211, 238, .07); }
+[data-theme='graphite'] { --aura-1: rgba(59, 130, 246, .10); --aura-2: rgba(148, 163, 184, .07); }
+[data-theme='aubergine']{ --aura-1: rgba(147, 51, 234, .13); --aura-2: rgba(240, 171, 252, .07); }
+[data-theme='bordeaux'] { --aura-1: rgba(225, 29, 72, .12);  --aura-2: rgba(251, 191, 36, .06); }
+[data-theme='cafe']     { --aura-1: rgba(217, 119, 6, .12);  --aura-2: rgba(163, 230, 53, .05); }
+[data-theme='foret']    { --aura-1: rgba(22, 163, 74, .12);  --aura-2: rgba(94, 234, 212, .06); }
+
+/* Couleurs sémantiques adaptées aux 7 thèmes clairs (textes foncés sur fonds pastel) */
+[data-theme='clair-bleu'], [data-theme='clair-ciel'], [data-theme='clair-foret'], [data-theme='clair-sable'],
+[data-theme='clair-rose'], [data-theme='clair-ardoise'], [data-theme='clair-contraste'] {
+    --color-vert-50: #f0fdf4; --color-vert-100: #dcfce7; --color-vert-200: #86efac;
+    --color-vert-400: #16a34a; --color-vert-500: #22c55e; --color-vert-600: #16a34a;
+    --color-rose-50: #fef2f2; --color-rose-100: #fee2e2; --color-rose-200: #fca5a5;
+    --color-rose-400: #dc2626; --color-rose-500: #dc2626; --color-rose-600: #dc2626; --color-rose-700: #b91c1c;
+    --color-orange-50: #fff7ed; --color-orange-100: #ffedd5; --color-orange-200: #fdba74;
+    --color-orange-400: #ea580c; --color-orange-500: #f97316; --color-orange-600: #ea580c;
+    --color-jaune-50: #fefce8; --color-jaune-100: #fef9c3; --color-jaune-200: #fde047;
+    --color-jaune-400: #a16207; --color-jaune-500: #ca8a04; --color-jaune-600: #ca8a04;
+}
+
+/* Fond global (sombre par défaut, suit slate-950 du thème) */
+body {
+    background-color: var(--color-slate-950);
+}
+
+::selection {
+    background: color-mix(in oklab, var(--color-blue-600) 40%, transparent);
+}
+
+/* Scrollbars discrètes */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-card-high);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ============================================================
+ * ANIMATIONS — entrées de page, modales, micro-interactions
+ * ============================================================ */
+@keyframes gpi-fade-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes gpi-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes gpi-pop {
+    from { opacity: 0; transform: scale(.94) translateY(10px); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes gpi-shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+}
+
+/* ===== Animations enrichies (v2) ===== */
+@keyframes gpi-slide-droite {
+    from { opacity: 0; transform: translateX(-18px); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes gpi-zoom-fondu {
+    from { opacity: 0; transform: scale(1.04); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes gpi-skeleton {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+@keyframes gpi-fade-filaire {
+    from { stroke-dashoffset: var(--longueur, 300); }
+    to { stroke-dashoffset: 0; }
+}
+@keyframes gpi-barre-croissance {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+@keyframes gpi-badge-pop {
+    0% { opacity: 0; transform: scale(.6); }
+    70% { transform: scale(1.12); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.anim-fade-up { animation: gpi-fade-up .5s cubic-bezier(.16, 1, .3, 1) both; }
+.anim-fade-in { animation: gpi-fade-in .3s ease-out both; }
+.anim-pop { animation: gpi-pop .32s cubic-bezier(.16, 1, .3, 1) both; }
+
+/* Classes v2 : diapo latérale, zoom-dou, cascade longue, tronçons animés */
+.anim-slide { animation: gpi-slide-droite .45s cubic-bezier(.16, 1, .3, 1) both; }
+.anim-zoom { animation: gpi-zoom-fondu .55s cubic-bezier(.16, 1, .3, 1) both; }
+.anim-badge { animation: gpi-badge-pop .4s cubic-bezier(.34, 1.56, .64, 1) both; }
+.anim-trait { stroke-dasharray: var(--longueur, 300); animation: gpi-fade-filaire 1.2s ease-out both; }
+
+/* Skeleton de chargement : fantômes gris qui défilent en attendant les données */
+.skeleton {
+    background: linear-gradient(90deg, var(--color-card-high) 25%, color-mix(in oklab, var(--color-card-high) 55%, var(--color-slate-200)) 50%, var(--color-card-high) 75%);
+    background-size: 200% 100%;
+    animation: gpi-skeleton 1.4s ease-in-out infinite;
+    border-radius: 6px;
+}
+
+.anim-shimmer {
+    background-image: linear-gradient(100deg, transparent 30%, color-mix(in oklab, var(--color-blue-600) 10%, transparent) 50%, transparent 70%);
+    background-size: 200% 100%;
+    animation: gpi-shimmer 1.8s linear infinite;
+}
+
+/* Décalages d'entrée en cascade */
+.anim-d1 { animation-delay: 70ms; }
+.anim-d2 { animation-delay: 140ms; }
+.anim-d3 { animation-delay: 210ms; }
+.anim-d4 { animation-delay: 280ms; }
+.anim-d5 { animation-delay: 350ms; }
+.anim-d6 { animation-delay: 420ms; }
+.anim-d7 { animation-delay: 490ms; }
+
+/*
+ * Page masquée (onglet en arrière-plan, webview non visible) : les navigateurs
+ * mettent les animations en pause, et le mode `both` figerait le contenu à
+ * opacity: 0. On désactive donc les animations d'entrée pour que le contenu
+ * s'affiche immédiatement — la classe est posée/retirée par app.jsx.
+ */
+html.page-cachee .anim-fade-up,
+html.page-cachee .anim-fade-in,
+html.page-cachee .anim-pop,
+html.page-cachee .anim-slide,
+html.page-cachee .anim-zoom,
+html.page-cachee .anim-badge,
+html.page-cachee .anim-trait,
+html.page-cachee .skeleton,
+html.page-cachee .anim-shimmer,
+html.page-cachee .lift {
+    animation: none !important;
+}
+/* Les skeletons figés en arrière-plan doivent rester visibles (pas opaques 0) */
+html.page-cachee .skeleton { background-position: 100% 0; }
+
+@keyframes gpi-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-24px, 16px) scale(1.1); }
+}
+
+/* Toasts : entrée par la droite + barre de durée de vie */
+@keyframes toast-arrivee {
+    from { opacity: 0; transform: translateX(40px) scale(.96); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes toast-sortie {
+    to { opacity: 0; transform: translateX(30px) scale(.95); }
+}
+@keyframes toast-duree {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+.toast-entree { animation: toast-arrivee .3s cubic-bezier(.16, 1, .3, 1) both; }
+.toast-entree[style*="sortant"], .toast-sortie { animation: toast-sortie .25s ease-in both; }
+.toast-vie { animation: toast-duree linear forwards; }
+
+/* Modale de confirmation : pop élastique */
+.modale-pop { animation: gpi-pop .28s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes gpi-pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(.75); }
+}
+@keyframes gpi-glow {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-blue-600) 45%, transparent); }
+    50% { box-shadow: 0 0 14px 2px color-mix(in oklab, var(--color-blue-600) 55%, transparent); }
+}
+@keyframes gpi-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+@keyframes gpi-spin-glow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.anim-float { animation: gpi-float 9s ease-in-out infinite; }
+.anim-pulse-dot { animation: gpi-pulse-dot 1.6s ease-in-out infinite; }
+.anim-glow { animation: gpi-glow 2.4s ease-in-out infinite; }
+.anim-shake { animation: gpi-shake .4s ease-in-out; }
+.anim-spin-glow { animation: gpi-spin-glow 7s linear infinite; }
+
+/* Soulèvement générique des cartes interactives */
+.lift {
+    transition: transform .22s cubic-bezier(.16, 1, .3, 1), box-shadow .22s ease;
+}
+.lift:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, .20);
+}
+.lift:active {
+    transform: translateY(0) scale(.995);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .anim-fade-up, .anim-fade-in, .anim-pop, .anim-slide, .anim-zoom, .anim-badge, .anim-trait, .anim-shimmer, .anim-float, .anim-pulse-dot, .skeleton, .lift { animation: none; transition: none; }
+    tbody tr { animation: none; }
+    .bg-card { transition: none; }
+    button:active { transform: none; }
+}
+
+/* ============================================================
+ * RESPONSIVE — sidebar en tiroir overlay sous LG, contenu pleine largeur
+ * ============================================================ */
+/* Layout.jsx positionne sidebar et contenu sur var(--sidebar-w) ; en dessous
+   de 1024px la sidebar passe en overlay rétractable : largeur nulle pour le flux. */
+@media (max-width: 1023.98px) {
+    :root { --sidebar-w: 0px; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+}
+
+/* Petits écrans : les tableaux restent lisibles via scroll horizontal déjà
+   en place ; on retient juste les retours à la ligne dans les badges. */
+@media (max-width: 640px) {
+    html { font-size: 15px; }
+    main { -webkit-tap-highlight-color: transparent; }
+}
+
+/* ===== Micro-interactions modernes (v2) =====
+ * Boutons/pill unifiés, focus ring doux, hover cartes — transition par défaut. */
+.btn-moderne {
+    transition: transform .18s cubic-bezier(.16, 1, .3, 1), box-shadow .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.btn-moderne:hover { transform: translateY(-1px); }
+.btn-moderne:active { transform: translateY(0) scale(.97); }
+.btn-moderne:disabled { transform: none; }
+
+/* Champ de saisie : fond qui s'éclaircit doucement au focus */
+.champ-moderne { transition: box-shadow .2s ease, border-color .2s ease, background-color .2s ease; }
+.champ-moderne:focus { background-color: color-mix(in oklab, var(--color-card-high) 70%, var(--color-slate-100)); }
+
+/* ============================================================
+ * ANIMATIONS GLOBALES — tout le contenu vit sans toucher chaque page
+ * ============================================================ */
+
+/* Lignes de tableau : entrée en cascade dés l'arrivée de données */
+tbody tr { animation: gpi-fade-up .45s cubic-bezier(.16, 1, .3, 1) both; }
+tbody tr:nth-child(1)  { animation-delay: 30ms; }
+tbody tr:nth-child(2)  { animation-delay: 70ms; }
+tbody tr:nth-child(3)  { animation-delay: 110ms; }
+tbody tr:nth-child(4)  { animation-delay: 150ms; }
+tbody tr:nth-child(5)  { animation-delay: 190ms; }
+tbody tr:nth-child(6)  { animation-delay: 230ms; }
+tbody tr:nth-child(7)  { animation-delay: 270ms; }
+tbody tr:nth-child(8)  { animation-delay: 310ms; }
+tbody tr:nth-child(9)  { animation-delay: 350ms; }
+tbody tr:nth-child(10) { animation-delay: 390ms; }
+tbody tr:nth-child(11) { animation-delay: 430ms; }
+tbody tr:nth-child(12) { animation-delay: 470ms; }
+tbody tr:nth-child(n+13) { animation-delay: 500ms; }
+
+/* Cartes (bg-card) : halo doux au survol, appuie au clic */
+.bg-card {
+    transition: box-shadow .25s ease, transform .25s cubic-bezier(.16, 1, .3, 1), border-color .25s ease;
+}
+.bg-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .10);
+}
+.bg-card:active {
+    transform: translateY(0.5px);
+}
+
+/* Boutons et liens : micro-souffle interactif par défaut */
+button, a {
+    transition: transform .16s cubic-bezier(.16, 1, .3, 1), background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+button:active { transform: scale(.97); }
+
+/* Onglets actifs des tableaux de config : soulignement animé */
+
+/* Page masquée : geler aussi la cascade des lignes (sinon `both` fige à opacity 0) */
+html.page-cachee tbody tr { animation: none !important; }
+
+/* Ligne de tableau : surbrillance latérale glissante */
+.ligne-table { position: relative; transition: background-color .18s ease; }
+.ligne-table::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--color-blue-500);
+    border-radius: 0 3px 3px 0;
+    opacity: 0;
+    transform: scaleY(.4);
+    transition: opacity .18s ease, transform .22s cubic-bezier(.16, 1, .3, 1);
+}
+.ligne-table:hover::before { opacity: 1; transform: scaleY(1); }
